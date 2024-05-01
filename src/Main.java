@@ -49,10 +49,10 @@ public class Main {
         for (File studentFile : student_files) {
                 for (String to_be_submitted : allowedFiles) {
                     if (studentFile.getName().equals(to_be_submitted + ".java")) {
-                        template_file = rootDir + File.separator + "TeacherSrc" + File.separator + getFileName(String.valueOf(studentFile)) + ".java";
+                        template_file = rootDir + File.separator + "TemplateSrc" + File.separator + getFileName(String.valueOf(studentFile)) + ".java";
                         Path after = Merge(String.valueOf(studentFile), template_file, server_source);
                         // Testing phase
-                        Files.deleteIfExists(after);
+//                        Files.deleteIfExists(after);
                     }
                 }
         }
@@ -78,10 +78,6 @@ public class Main {
             // Read the template file and write its content to the output file
             String line;
             while ((line = templateReader.readLine()) != null) {
-                if (line.contains("class")) {
-                    String class_name = getFileName(student_file);
-                    line = "public class " + class_name + " {";
-                }
                 writer.write(line);
                 writer.write("\n");
             }
