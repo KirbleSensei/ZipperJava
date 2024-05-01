@@ -10,7 +10,7 @@ public class Main {
     //commit
     private static final String BELOW = "below ~~~~~~~~~~~~~~~~~ V";
     private static final String ABOVE = "above ~~~~~~~~~~~~~~~~~ A";
-    private static final String[] allowedFiles = {"Node"};
+    private static final String[] allowedFiles = {"Node", "Tree"};
 
     private static List<String> getCodeBlocks(String filename) throws IOException {
         BufferedReader student_reader = new BufferedReader(new FileReader(filename));
