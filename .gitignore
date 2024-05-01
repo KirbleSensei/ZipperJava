@@ -30,3 +30,4 @@ bin/
 src/Merged.java
 .idea/discord.xml
 src/Merged.java
+ServerSrc/Node.java
