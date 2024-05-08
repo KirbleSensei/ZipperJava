@@ -10,7 +10,7 @@ public class Main {
     //commit
     private static final String BELOW = "below ~~~~~~~~~~~~~~~~~ V";
     private static final String ABOVE = "above ~~~~~~~~~~~~~~~~~ A";
-    private static final String[] allowedFiles = {"Node", "Tree"};
+    private static final String[] allowedFiles = {"Node"};
 
     private static List<String> getCodeBlocks(String filename) throws Exception {
         BufferedReader student_reader = new BufferedReader(new FileReader(filename));
@@ -23,9 +23,14 @@ public class Main {
             if (flag!= 0 && flag!= 1){
                 throw new Exception("Missing below/above identifiers!");
             }
+            if (new_line.contains(ABOVE)){
+                flag--;
+            }
+            else if (new_line.contains(BELOW)){
+                flag++;
+            }
             if (insideCodeBlock) {
                 if (new_line.contains(ABOVE)) {
-                    flag--;
                     insideCodeBlock = false;
                     code_lines.add(student_block.toString());
                     student_block.setLength(0);
@@ -33,7 +38,6 @@ public class Main {
                     student_block.append(new_line).append("\n");
                 }
             } else if (new_line.contains(BELOW)) {
-                flag++;
                 insideCodeBlock = true;
             }
         }
