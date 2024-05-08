@@ -12,15 +12,20 @@ public class Main {
     private static final String ABOVE = "above ~~~~~~~~~~~~~~~~~ A";
     private static final String[] allowedFiles = {"Node", "Tree"};
 
-    private static List<String> getCodeBlocks(String filename) throws IOException {
+    private static List<String> getCodeBlocks(String filename) throws Exception {
         BufferedReader student_reader = new BufferedReader(new FileReader(filename));
         StringBuilder student_block = new StringBuilder();
         boolean insideCodeBlock = false;
         String new_line;
         List<String> code_lines = new java.util.ArrayList<>(List.of());
+        int flag = 0;
         while ((new_line = student_reader.readLine()) != null) {
+            if (flag!= 0 && flag!= 1){
+                throw new Exception("Missing below/above identifiers!");
+            }
             if (insideCodeBlock) {
                 if (new_line.contains(ABOVE)) {
+                    flag--;
                     insideCodeBlock = false;
                     code_lines.add(student_block.toString());
                     student_block.setLength(0);
@@ -28,6 +33,7 @@ public class Main {
                     student_block.append(new_line).append("\n");
                 }
             } else if (new_line.contains(BELOW)) {
+                flag++;
                 insideCodeBlock = true;
             }
         }
@@ -105,6 +111,8 @@ public class Main {
 
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
         return merged_file.toPath();
     }
